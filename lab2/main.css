@@ -1,0 +1,21 @@
+body {
+    background-color: lightblue;
+    color: maroon;
+    font-family: Arial;
+    margin: 0px;
+}
+header {
+    background-color: darkmagenta;
+    color: blueviolet;
+    font-family: 'Courier New';
+}
+
+main {
+    background-color: cornflowerblue;
+    color: crimson;
+    font-family: Arial;
+}
+footer {
+    background-color: aqua;
+    color: blue;
+}

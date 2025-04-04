@@ -8,12 +8,13 @@
     
 <style>
 .citation {
+    border: 1px solid red;
     padding: 20px; 
     border-radius: 10px;
     margin: 20px;
     box-shadow: 10px 10px 5px #0002;
+    background: linear-gradient(to right, red, orange, yellow, green, blue, darkblue, purple);
 }
-
 .citation1 {
     border: 2px solid red;
     background: linear-gradient(to right, red, orange);
@@ -63,18 +64,16 @@
     border: 2px solid black;
     background: linear-gradient(to right, black, darkgray);
 }
-
 .text {
     font-size: 30px;
     font-weight: bold; 
     text-align: center;
 }
-
 .author {
     text-align: left; 
     font-size: 30px; 
     opacity: 0.8;
-    margin-top: 30px; 
+    margin-top: 30px; /* Исправлено здесь */
     margin-left: 50%;
 }
 </style>
@@ -84,11 +83,10 @@
         НГТУ. ФБ. Лабораторная работа 3
     </header>
     <main>
-        <div class="citation citation1"> 
+        <div class="citation"> <!-- Изменено здесь -->
             <div class="text">Стремитесь не к успеху, а к ценностям, которые он дает.</div> 
             <div class="author">Альберт Эйнштейн</div>
         </div>
-
         <div class="citation citation2"> 
             <div class="text">"Будьте тем изменением, которое вы хотите видеть в мире."</div> 
             <div class="author">Махатма Ганди</div>

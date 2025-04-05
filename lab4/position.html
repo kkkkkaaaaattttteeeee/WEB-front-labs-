@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Обедина Екатерина Сергеевна. Лабораторная работа 4</title>
+    <link rel="stylesheet" href="main.css">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="favicon-16x16.png">
+    <link rel="icon" href="favicon-32x32.png">
+<style>
+    div {
+        width: 300px;
+        height: 70px;
+        line-height: 70px;
+        text-align: center;
+        background-color: white;
+        border: 1px dotted darkgreen;
+        margin: 15px;
+    }
+    
+    .position-relative {
+        position: relative;
+        right: -155px;
+        top: -130px;
+        z-index: -1;
+        
+    }
+    .static {
+        position: relative;
+        z-index: 1;
+    }
+
+    .position-relative:hover {
+        position: relative;
+        z-index: 2;
+    }
+
+    .position-absolute {
+        position: absolute;
+        left: 300px;
+
+    }
+
+    .position-absolute:hover {
+        transform: scale(1.1);
+        background-color:cornflowerblue;
+        box-shadow: 3px 2px 2px rgb(218, 133, 133)
+
+    }
+</style>
+</head>
+<body>
+    <heaader>НГТУ, ФБ, Лабораторная работа 4</heaader>
+
+    <main class="static">
+        <div>static</div>
+        <div>static</div>
+        <div class="position-relative">relative</div>
+        <div>static</div>
+        <div>static</div>
+        <div class="position-absolute">absolute</div>
+        <div>static</div>
+        <div>static</div>
+        <div>static</div>
+        <div>static</div>
+    </main>
+
+    <footer>
+        &copy;Обедина Екатерина, ФБИ-33, 2 курс, 2025
+    </footer>
+</body>
+</html>

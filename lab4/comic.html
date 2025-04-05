@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Комикс</title>
+    <style>
+        body {
+            margin: 0;             
+            display: flex;          
+            justify-content: center;
+            align-items: center;    
+            min-height: 100vh;  
+            z-index: 0;
+        }
+        html {
+            background-color:lightblue;
+            z-index: 1;
+        }
+        
+        img {
+            max-width: 100%;
+            height: auto;
+            transition: transform 0.5s ease; /* Плавный переход для увеличения изображения */
+        }
+        img:hover {
+            transform: scale(1.1); /* Увеличение изображения при наведении */
+        }
+
+        .oval {
+            position: absolute; /* Абсолютное позиционирование овала */
+            background-color:lightcyan; /* Цвет фона */
+            box-shadow: 5px 3px 3px rgb(22, 6, 243);
+            border-radius: 50%; /* Закругленные края */
+            z-index: 2; /* Овал должен быть выше изображения */
+            opacity: 0; /* Изначально невидимый */
+            transition: opacity 0.5s ease; /* Плавный переход для появления и исчезновения */
+        }
+
+        .oval1 {
+            width: 140px; /* Ширина овала */
+            height: 70px; /* Высота овала */
+            top: 32%; /* Позиционируем овал по центру */
+            left: 45%;
+            transform: translate(-50%, -50%); /* Центрируем овал */
+        }
+        .oval2 {
+            width: 150px; /* Ширина овала */
+            height: 80px; /* Высота овала */
+            top: 25%; /* Позиционируем овал по центру */
+            left: 35%;
+            transform: translate(-50%, -50%); /* Центрируем овал */
+        }
+        .oval3 {
+            width: 170px; /* Ширина овала */
+            height: 100px; /* Высота овала */
+            top: 17%; /* Позиционируем овал по центру */
+            left: 23%;
+            transform: translate(-50%, -50%); /* Центрируем овал */
+        }
+        .oval4 {
+            width: 260px; /* Ширина овала */
+            height: 160px; /* Высота овала */
+            top: 35%; /* Позиционируем овал по центру */
+            left: 16%;
+            transform: translate(-50%, -50%); /* Центрируем овал */
+            display: flex; /* Флексбокс для центрирования текста */
+            justify-content: center; /* Выравнивание по горизонтали */
+            align-items: center; /* Выравнивание по вертикали */
+            color: black; /* Цвет текста */
+            font-size: 18px; /* Размер шрифта */
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <div>
+            <img src="di.jpg" alt="комикс" id="comicImage">
+        </div>
+
+        <div class="oval oval1"></div>
+        <div class="oval oval2"></div>
+        <div class="oval oval3"></div>
+        <div class="oval oval4">Такая работа заслуживает "5"</div>
+    </main>
+
+    <script>
+        const image = document.getElementById('comicImage');
+        const ovals = document.querySelectorAll('.oval');
+
+        image.addEventListener('mouseenter', () => {
+            ovals.forEach((oval, index) => {
+                setTimeout(() => {
+                    oval.style.opacity = '1'; // Показать овалы поочередно
+                }, index * 300); // Задержка между появлениями (300 мс)
+            });
+        });
+
+        image.addEventListener('mouseleave', () => {
+            setTimeout(() => {
+                ovals.forEach(oval => {
+                    oval.style.opacity = '0'; // Скрыть все овалы
+                });
+            }, 1000); // Задержка в 1 секунду перед исчезновением
+        });
+    </script>
+</body>
+</html>

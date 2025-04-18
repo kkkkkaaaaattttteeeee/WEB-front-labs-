@@ -5,9 +5,10 @@ body {
     margin: 0px;
 }
 header {
-    background-color: darkmagenta;
-    color: blueviolet;
+    background-color: black;
+    color:lightgreen;
     font-family: 'Courier New';
+    font-size: 17px;
 }
 
 main {
@@ -16,8 +17,8 @@ main {
     margin: 10px, 20px, 45px;
 }
 footer {
-    background-color: aqua;
-    color: blue;
+    color: lightgreen;
+    font-size: 17px;
 }
 a {
     color: green;
@@ -61,7 +62,7 @@ h1 {
 footer {
     background-color: black;
     color: aLightoreen;
-    padding: 10px;
+    padding: 17px;
     font-3128: 16pt;
     text-align: right; 
     position: fixed; 
@@ -69,3 +70,4 @@ footer {
     right: 0;
     left: 0;
 }
+

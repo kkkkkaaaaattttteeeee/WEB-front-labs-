@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Обедина Екатерина Сергеевна. Лабораторная работа 4</title>
+    <link rel="stylesheet" href="main.css">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="favicon-16x16.png">
+    <link rel="icon" href="favicon-32x32.png">
+<style>
+    header {
+        background: black;
+        color: lightgreen;
+        font-size: 18px;
+        margin: 0px;
+        padding: 25px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+    }
+    body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: lightblue;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.progress-panel {
+    background-color: #ffffff;
+    border: 2px solid #800000; /* Бордовая рамка */
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+.loading-bar {
+    width: 300px; /* Ширина загрузки */
+    height: 30px;
+    border: 2px solid #800000; /* Бордовая рамка */
+    border-radius: 5px;
+    background-color: #ffffff;
+    margin: 20px auto;
+    position: relative;
+}
+
+.loading-fill {
+    height: 100%;
+    background-color: #007bff; /* Синий цвет заполнения */
+    width: 0%;
+    transition: width 5s linear; /* Плавное заполнение */
+}
+
+.hold-button {
+    background-color: #ffffff;
+    border: 2px solid #800000; /* Бордовая рамка */
+    border-radius: 20px;
+    padding: 10px 20px;
+    cursor: pointer;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.hold-button:hover {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4); /* Более выраженная тень при наведении */
+}
+
+.hold-button:active {
+    box-shadow: none; /* Убираем тень при нажатии */
+}
+
+</style>
+</head>
+<body>
+    <header>НГТУ, ФБ, Лабораторная работа 4</header>
+
+    <main><body>
+        <div class="container">
+            <div class="progress-panel">
+                <h2>Степень прогресса</h2>
+                <div class="loading-bar" id="loadingBar"></div>
+                <button class="hold-button" id="holdButton">Нажмите и удерживайте</button>
+            </div>
+        </div>
+        <script src="script.js"></script>
+    </body></main>
+    
+
+    <footer>
+        &copy;Обедина Екатерина, ФБИ-33, 2 курс, 2025
+    </footer>
+</body>
+</html>

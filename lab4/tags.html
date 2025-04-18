@@ -34,14 +34,19 @@
             text-decoration: none;
             border-radius: 20px;
             transition: transform 0.3s, box-shadow 0.3s, z-index 0.3s;
+            animation: float 5s infinite; /* Анимация «плавания» */
         }
-
         .tag:hover {
             transform: scale(1.5);
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-            z-index: 10; /* Поверх остальных тегов */
+            z-index: 10;
+            animation-play-state: paused; /* Приостановка анимации при наведении */
         }
-
+        @keyframes float {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0); }
+        }
         /* Пример стилей для тегов с разными шрифтами и размерами */
         .tag1 { background-color: #3498db; font-size: 150px; top: 80%; left: 0%; }
         .tag2 { background-color: #e74c3c; font-size: 78px; top: 80%; left: 91%; border: 2px solid white; }
@@ -81,6 +86,50 @@
             <a href="#" class="tag tag15">Bootstrap</a>
         </div>
     </main>
+    <script>
+        const tags = document.querySelectorAll('.tag');
+
+        // Функция для случайного движения тегов
+        function animateTags() {
+            tags.forEach(tag => {
+                let deltaX = (Math.random() - 0.5) * 2; // Случайное смещение по X
+                let deltaY = (Math.random() - 0.5) * 2; // Случайное смещение по Y
+
+                // Устанавливаем начальные координаты
+                let posX = Math.random() * window.innerWidth;
+                let posY = Math.random() * window.innerHeight;
+
+                // Анимация движения
+                function moveTag() {
+                    posX += deltaX;
+                    posY += deltaY;
+
+                    // Проверка границ
+                    if (posX > window.innerWidth || posX < 0) deltaX *= -1;
+                    if (posY > window.innerHeight || posY < 0) deltaY *= -1;
+
+                    tag.style.left = ${posX}px;
+                    tag.style.top = ${posY}px;
+
+                    requestAnimationFrame(moveTag);
+                }
+
+                moveTag();
+
+                // Приостановка движения при наведении
+                tag.addEventListener('mouseenter', () => {
+                    cancelAnimationFrame(moveTag);
+                });
+
+                // Возобновление движения при уходе курсора
+                tag.addEventListener('mouseleave', () => {
+                    moveTag();
+                });
+            });
+        }
+
+        animateTags();
+    </script>
     <footer>
         &copy;Обедина Екатерина, ФБИ-33, 2 курс, 2025
     </footer>

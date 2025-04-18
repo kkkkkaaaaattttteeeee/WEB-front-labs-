@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Обедина Екатерина Сергеевна. Лабораторная работа 4</title>
+    <link rel="stylesheet" href="main.css">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="favicon-16x16.png">
+    <link rel="icon" href="favicon-32x32.png">
+    <style>
+        header {
+            background: black;
+            color: lightgreen;
+            font-size: 18px;
+            margin: 0px;
+            padding: 25px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+        }
+        body {
+            margin: 0;
+            background-color: lightblue;
+            /* Убираем прокрутку */
+        }
+
+        .tag {
+            position: absolute;
+            display: inline-block;
+            padding: 10px;
+            color: white;
+            text-decoration: none;
+            border-radius: 20px;
+            transition: transform 0.3s, box-shadow 0.3s, z-index 0.3s;
+        }
+
+        .tag:hover {
+            transform: scale(1.5);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            z-index: 10; /* Поверх остальных тегов */
+        }
+
+        /* Пример стилей для тегов с разными шрифтами и размерами */
+        .tag1 { background-color: #3498db; font-size: 150px; top: 80%; left: 0%; }
+        .tag2 { background-color: #e74c3c; font-size: 78px; top: 80%; left: 91%; border: 2px solid white; }
+        .tag3 { background-color: #2ecc71; font-size: 28px; top: 10%; left: 60%; font-family: 'Courier New', Courier, monospace; }
+        .tag4 { background-color: #9b59b6; font-size: 200px; top: 5%; left: 70%; font-family: 'Georgia', serif; }
+        .tag5 { background-color: #f39c12; font-size: 24px; top: 75%; left: 25%; border-radius: 10px; }
+        .tag6 { background-color: #e67e22; font-size: 20px; top: 30%; left: 80%; }
+        .tag7 { background-color: #1abc9c; font-size: 32px; top: 60%; left: 40%; border: 1px dashed white; }
+        .tag8 { background-color: #34495e; font-size: 18px; top: 20%; left: 50%; }
+        .tag9 { background-color: #8e44ad; font-size: 27px; top: 80%; left: 30%; }
+        .tag10 { background-color: #c0392b; font-size: 21px; top: 15%; left: 80%; border-radius: 15px; }
+        .tag11 { background-color: #2980b9; font-size: 67px; top: 50%; left: 10%; font-family: 'Arial', sans-serif; }
+        .tag12 { background-color: #d35400; font-size: 29px; top: 75%; left: 50%; border-width: 3px; border-style: double; }
+        .tag13 { background-color: #27ae60; font-size: 189px; top: 30%; left: 10%; }
+        .tag14 { background-color: #8e44ad; font-size: 24px; top: 65%; left: 70%; }
+        .tag15 { background-color: #f39c12; font-size: 10px; top: 85%; left: 20%; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <header>НГТУ, ФБ, Лабораторная работа 4</header>
+    <main>
+        <div>
+            <a class="tag tag1">HTML</a>
+            <a href="#" class="tag tag2">CSS</a>
+            <a href="#" class="tag tag3">JavaScript</a>
+            <a href="#" class="tag tag4">React</a>
+            <a href="#" class="tag tag5">Vue</a>
+            <a href="#" class="tag tag6">Angular</a>
+            <a href="#" class="tag tag7">Node.js</a>
+            <a href="#" class="tag tag8">Express</a>
+            <a href="#" class="tag tag9">MongoDB</a>
+            <a href="#" class="tag tag10">SQL</a>
+            <a href="#" class="tag tag11">Git</a>
+            <a href="#" class="tag tag12">Webpack</a>
+            <a href="#" class="tag tag13">SASS</a>
+            <a href="#" class="tag tag14">TypeScript</a>
+            <a href="#" class="tag tag15">Bootstrap</a>
+        </div>
+    </main>
+    <footer>
+        &copy;Обедина Екатерина, ФБИ-33, 2 курс, 2025
+    </footer>
+</body>
+</html>

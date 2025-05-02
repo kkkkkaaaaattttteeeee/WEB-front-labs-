@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Обедина Екатерина Сергеевна. Лабораторная работа 5</title>
+    <link rel="stylesheet" href="main.css">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="favicon-16x16.png">
+    <link rel="icon" href="favicon-32x32.png">
+    <style>
+        #block {
+          width: 400px;
+          height: 150px;
+          border: 2px solid black;
+          margin: 20px auto;
+          padding: 10px;
+          font-size: 18px;
+          user-select: none;
+          transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+        }
+        /* Класс для синиего фона при Alt */
+        .alt-pressed {
+          background-color: #cce5ff;
+        }
+        /* Класс для рамки при Shift */
+        .shift-pressed {
+          border-color: green;
+          box-shadow: 0 0 10px green;
+        }
+      </style>
+      <script>
+      function showCoords() {
+          // Получаем объект события из window.event (т.к. используем onmousemove в атрибуте)
+          const e = window.event;
+      
+          let x = e.clientX; // координата X мыши относительно окна браузера
+          let y = e.clientY; // координата Y мыши
+      
+          const div = document.getElementById('block');
+      
+          // Формируем текст с координатами
+          let text = '<b>x</b> = ${x}px<br><b>y</b> = ${y}px<br>';
+      
+          // Массив для хранения нажатых клавиш
+          let pressedKeys = [];
+      
+          // Проверяем нажатые клавиши и формируем сообщения
+          if(e.ctrlKey) pressedKeys.push('Нажата клавиша Ctrl');
+          if(e.altKey) pressedKeys.push('Нажата клавиша Alt');
+          if(e.shiftKey) pressedKeys.push('Нажата клавиша Shift');
+      
+          if(pressedKeys.length > 0) {
+            text += pressedKeys.join('<br>');
+          }
+      
+          div.innerHTML = text;
+      
+          // Сбрасываем стили к исходным
+          div.style.color = 'black';
+          div.classList.remove('alt-pressed', 'shift-pressed');
+      
+          // Меняем стили в зависимости от нажатых клавиш
+          if(e.ctrlKey) {
+            div.style.color = 'red';
+          }
+          if(e.altKey) {
+            div.classList.add('alt-pressed');
+          }
+          if(e.shiftKey) {
+            div.classList.add('shift-pressed');
+          }
+      }
+      </script>
+      </head>
+      <body>
+      
+      <header>НГТУ, ФБ, Лабораторная работа 5</header>
+      
+      <main>
+        <div id="block" onmousemove="showCoords()"></div>
+      </main>
+      
+      <footer>
+        &copy; Обедина Екатерина, ФБИ-33, 2 курс, 2025
+      </footer>
+      
+      </body>
+      </html>

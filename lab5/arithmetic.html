@@ -94,6 +94,12 @@
         let result = a**b;
         alert(a + " ^ " + b + " = " + result);
     }
+    function changeOutput(buttonNum, backColor, textColor) {
+        let output = document.getElementById('output');
+        output.innerHTML = 'Нажата кнопка ' + buttonNum;
+        output.style.backgroundColor = backColor;
+        output.style.color = textColor;
+    }
 </script>
 <style>
     .message {
@@ -108,6 +114,16 @@
         padding: 8px;
         font-weight: bolder;
         
+    }
+    #output {
+        border: 1px solid;
+        width: 300px;
+        height: 40px;
+        margin: 15px;
+        border-radius: 15px;
+        text-align: center;
+        font-size: 23px;
+
     }
 </style>
 </head>
@@ -124,6 +140,15 @@
         <div class="message" onclick="showPro()">Найти произведение чисел</div>
         <div class="message" onclick="showDiv()">Найти отношение чисел</div>
         <div class="message" onclick="showStep()">Возведение в степень</div>
+
+        <div>
+            <input type="button" value="Кнопка 1" onclick="changeOutput(1, 'red', 'yellow')">
+            <input type="button" value="Кнопка 2" onclick="changeOutput(2, 'orange', 'green')">
+            <input type="button" value="Кнопка 3" onclick="changeOutput(3, 'white', 'blue')">
+            <input type="button" value="Кнопка 4" onclick="changeOutput(4, 'purple', 'black')">
+        </div>
+
+        <div id="output"></div>
     </main>
 
     <footer ondblclick="showFive()">

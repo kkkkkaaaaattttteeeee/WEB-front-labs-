@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Фильтры для изображения</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .image-container {
+            margin: 20px 0;
+        }
+        #myImage {
+            width: 100%;
+            max-width: 600px;
+            transition: filter 0.2s;
+        }
+        .info {
+            margin-top: 10px;
+            padding: 10px;
+            background: #f0f0f0;
+        }
+        .instructions {
+            margin: 20px 0;
+            padding: 15px;
+            background: #e6f7ff;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Фильтры для изображения</h1>
+    
+    <div class="instructions">
+        <h3>Как использовать:</h3>
+        <p>• Наведите курсор на изображение - появится фильтр (чем правее курсор, тем сильнее эффект)</p>
+        <p>• Удерживайте клавиши для других фильтров:</p>
+        <p>  - <b>Ctrl</b>: Чёрно-белый</p>
+        <p>  - <b>Alt</b>: Оттенок</p>
+        <p>  - <b>Shift</b>: Яркость</p>
+    </div>
+    
+    <div class="image-container">
+        <img id="myImage" src="flora.webp" alt="Пример изображения">
+        <div class="info">
+            Фильтр: <span id="filterName">нет</span><br>
+            Сила: <span id="filterPower">0%</span>
+        </div>
+    </div>
+
+    <script>
+        const image = document.getElementById('myImage');
+        const filterName = document.getElementById('filterName');
+        const filterPower = document.getElementById('filterPower');
+        
+        // Настройки фильтров
+        const filters = {
+            none: { max: '0', unit: '' },
+            blur: { max: '10px', unit: 'px' },
+            grayscale: { max: '100%', unit: '%' },
+            hueRotate: { max: '360deg', unit: 'deg' },
+            brightness: { max: '200%', unit: '%' }
+        };
+        
+        // Обработка движения мыши
+        image.addEventListener('mousemove', (e) => {
+            // Определяем позицию мыши (0-100%)
+            const rect = image.getBoundingClientRect();
+            const pos = ((e.clientX - rect.left) / rect.width) * 100;
+            
+            // Выбираем фильтр в зависимости от нажатых клавиш
+            let currentFilter = 'blur';
+            if (e.ctrlKey) currentFilter = 'grayscale';
+            if (e.altKey) currentFilter = 'hueRotate';
+            if (e.shiftKey) currentFilter = 'brightness';
+            
+            // Рассчитываем силу эффекта
+            const power = (pos / 100) * parseFloat(filters[currentFilter].max);
+            const unit = filters[currentFilter].unit;
+            
+            // Применяем фильтр
+            if (currentFilter === 'none') {
+                image.style.filter = 'none';
+            } else {
+                image.style.filter = ${currentFilter}(${power}${unit});
+            }
+            
+            // Показываем информацию
+            filterName.textContent = currentFilter;
+            filterPower.textContent = power.toFixed(1) + unit;
+        });
+        
+        // Сброс при уходе мыши
+        image.addEventListener('mouseleave', () => {
+            image.style.filter = 'none';
+            filterName.textContent = 'нет';
+            filterPower.textContent = '0%';
+        });
+    </script>
+</body>
+</html>

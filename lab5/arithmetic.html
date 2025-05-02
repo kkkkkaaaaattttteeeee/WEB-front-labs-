@@ -15,6 +15,14 @@
         let result = a + b;
         alert('Сумма ' + a +' и ' +b +' равна' + result);
     }
+    function showAuthor() {
+        let author = 'Автор страницы: \nОбедина Екатерина Сергеевна';
+        alert(author);
+    }
+    function showFive() {
+        let mark = 'Добро пожаловать на мою страницу \nОценка: 5 баллов';
+        alert(mark);
+    }
 </script>
 <style>
     .message {
@@ -33,14 +41,14 @@
 </style>
 </head>
 <body>
-    <heaader>НГТУ, ФБ, Лабораторная работа 5</heaader>
+    <heaader onclick="showAuthor">НГТУ, ФБ, Лабораторная работа 5</heaader>
 
     <main>
         <div class="message" onclick="showSum()">Сколько будет 5154+7891?</div>
-        <div class="message">Узнать, кто автор страницы</div>
+        <div class="message" onclick="showAuthor()">Узнать, кто автор страницы</div>
     </main>
 
-    <footer>
+    <footer ondblclick="showFive()">
         &copy;Обедина Екатерина, ФБИ-33, 2 курс, 2025
     </footer>
 </body>

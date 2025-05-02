@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Обедина Екатерина Сергеевна. Лабораторная работа 5</title>
+    <link rel="stylesheet" href="main.css">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="favicon-16x16.png">
+    <link rel="icon" href="favicon-32x32.png">
+    <script>
+        function showRas() {
+    let inputA = document.getElementById('numberA');
+    let inputB = document.getElementById('numberB');
+    let inputC = document.getElementById('numberC');
+    let inputD = document.getElementById('numberD');
+    let inputE = document.getElementById('numberE');
+
+    let a = parseInt(inputA.value) || 0;
+    let b = parseInt(inputB.value) || 0;
+    let c = parseInt(inputC.value) || 0;
+    let d = parseInt(inputD.value) || 0;
+    let e = parseInt(inputE.value) || 0;
+
+    let result = a * 100 + b * 80 + c * 150 + d * 400 + e * 150;
+    alert(result + ' руб.');
+}
+
+        function clearInputs() {
+    // Получаем элементы ввода по id
+    let inputA = document.getElementById('numberA');
+    let inputB = document.getElementById('numberB');
+    let inputC = document.getElementById('numberC');
+    let inputD = document.getElementById('numberD');
+    let inputE = document.getElementById('numberE');
+
+    // Очищаем каждое значение
+    inputA.value = '';
+    inputB.value = '';
+    inputC.value = '';
+    inputD.value = '';
+    inputE.value = '';
+}
+
+// Теперь можно вызвать эту функцию в нужный момент,
+// например, по нажатию кнопки "Очистить":
+document.getElementById("clearButton").addEventListener("click", clearInputs);
+    </script>
+<style>
+    .message {
+        position: absolute;
+        cursor: pointer;
+        color: brown;
+        background-color: antiquewhite;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: large;
+        display: inline-block;
+        margin: 25px;
+        border: 3px solid darkblue;
+        padding: 25px;
+        font-weight: bolder;
+        left: 38%;
+        top: 20%;
+    }
+    div {
+        margin: 10px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+    .zag {
+        text-align: center;
+        font-size: 30px;
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+    label {
+        padding-left: 10px;
+    }
+    .ras {
+        border: 2px solid red;
+        border-radius: 10px;
+        text-align: center;
+        font-size: 15px;
+        margin-top: 25px;
+    }
+</style>
+</head>
+<body>
+    <heaader>НГТУ, ФБ, Лабораторная работа 5</heaader>
+
+    <main class="message">
+        <div class="zag"> Корзина товаров </div>
+                    <div><a>Яблоки (100р/шт)</a> <label><input type= "number" id="numberA" placeholder="Сколько надо яблок?"></label>
+                </div>
+                <div>
+                    <a>Груши (80р/шт)</a><label><input type= "number" id="numberB" placeholder="Сколько надо груш?"></label>
+                </div>
+                <div>
+                    <a>Апельсины (150р/шт)</a><label><input type= "number" id="numberC" placeholder="Сколько надо апельсинов?"></label>
+                </div>
+                <div>
+                    <a>Дыня (400р/шт)</a><label><input type= "number" id="numberD" placeholder="Сколько надо дыни?"></label>
+                </div>
+                <div>
+                    <a>Арбуз (150р/шт)</a><label><input type= "number" id="numberE" placeholder="Сколько надо арбузов?"></label>
+                </div>
+                <div class="ras" onclick="showRas()"> Рассчитать </div>
+                <div class="ras" onclick="clearInputs()"> Очистить </div>
+                
+            
+        </div>
+    </main>
+
+    <footer>
+        &copy;Обедина Екатерина, ФБИ-33, 2 курс, 2025
+    </footer>
+</body>
+</html>

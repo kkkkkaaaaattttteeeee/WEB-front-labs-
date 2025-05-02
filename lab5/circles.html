@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Обедина Екатерина Сергеевна. Лабораторная работа 5</title>
+    <link rel="stylesheet" href="main.css">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="favicon-16x16.png">
+    <link rel="icon" href="favicon-32x32.png">
+    <style>
+        body {
+          margin: 20px;
+          font-family: Arial, sans-serif;
+        }
+        #container {
+          position: relative;
+          width: 800px;
+          height: 600px;
+          border: 2px solid #333;
+          background: #f0f0f0;
+          overflow: hidden;
+          user-select: none;
+        }
+        .circle {
+          position: absolute;
+          width: 80px;
+          height: 80px;
+          border-radius: 50%;
+          color: white;
+          font-weight: bold;
+          font-size: 32px;
+          line-height: 80px;
+          text-align: center;
+          cursor: pointer;
+      
+          /* Плавный переход для размера и прозрачности */
+          transition: width 0.7s ease, height 0.7s ease, opacity 0.7s ease, line-height 0.7s ease, font-size 0.7s ease;
+        }
+        .hidden {
+          width: 0 !important;
+          height: 0 !important;
+          opacity: 0 !important;
+          line-height: 0 !important;
+          font-size: 0 !important;
+          pointer-events: none; /* чтобы не реагировал на клики */
+        }
+        #resetBtn {
+          margin-top: 15px;
+          padding: 10px 20px;
+          font-size: 16px;
+          cursor: pointer;
+        }
+      </style>
+</head>
+<body>
+    <heaader>НГТУ, ФБ, Лабораторная работа 5</heaader>
+
+    <main>
+        <h2>Круги с номерами</h2>
+
+        <div id="container"></div>
+        
+        <button id="resetBtn">Восстановить все круги</button>
+        
+        <script>
+          const container = document.getElementById('container');
+          const resetBtn = document.getElementById('resetBtn');
+        
+          const circleCount = 10;
+          const circleSize = 80;
+          const colors = [
+    '#e74c3c', // красный
+    '#3498db', // синий
+    '#2ecc71', // зелёный
+    '#f1c40f', // жёлтый
+    '#9b59b6', // фиолетовый
+    '#e67e22', // оранжевый
+    '#1abc9c', // бирюзовый
+    '#34495e', // тёмно-синий
+    '#d35400', // тёмно-оранжевый
+    '#7f8c8d'  // серый
+  ];
+  // Функция для генерации случайного числа в диапазоне [min, max]
+  function randomInt(min, max) {
+    return Math.floor(Math.random() * (max - min +1)) + min;
+  }
+
+  // Создаём круги и размещаем их случайно внутри контейнера
+  function createCircles() {
+    for(let i=1; i<=circleCount; i++) {
+      const div = document.createElement('div');
+      div.classList.add('circle');
+      div.textContent = i;
+
+      // Задаём цвет из массива (по индексу)
+      div.style.backgroundColor = colors[i-1];
+
+      // Случайное положение внутри контейнера с учётом размеров круга
+      const maxLeft = container.clientWidth - circleSize;
+      const maxTop = container.clientHeight - circleSize;
+
+      const left = randomInt(0, maxLeft);
+      const top = randomInt(0, maxTop);
+
+      div.style.left = left + 'px';
+      div.style.top = top + 'px';
+
+      // При клике скрываем круг с анимацией
+      div.addEventListener('click', () => {
+        div.classList.add('hidden');
+      });
+
+      container.appendChild(div);
+    }
+  }
+
+  // Восстановить все круги — убираем класс hidden и возвращаем размеры/прозрачность
+  function resetCircles() {
+    const circles = container.querySelectorAll('.circle');
+    circles.forEach(circle => {
+      circle.classList.remove('hidden');
+    });
+  }
+
+  // Инициализация
+  createCircles();
+
+  resetBtn.addEventListener('click', resetCircles);
+</script>
+    </main>
+
+    <footer>
+        &copy;Обедина Екатерина, ФБИ-33, 2 курс, 2025
+    </footer>
+</body>
+</html>

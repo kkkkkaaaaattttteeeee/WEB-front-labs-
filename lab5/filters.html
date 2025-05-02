@@ -8,18 +8,25 @@
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
     <link rel="icon" href="favicon-16x16.png">
     <link rel="icon" href="favicon-32x32.png">
+    <script>
+        function blurChange() {
+          let value = document.getElementById('blurValue').value + 'px';
+          document.getElementById('blurOutput').innerText = value;
+          document.getElementById('blurImage').style.filter = 'blur('+ value + ')';
+        }
+    </script>
 
 </head>
 <body>
     <heaader>НГТУ, ФБ, Лабораторная работа 5</heaader>
 
     <main>
-        <ol>
-            <li><a href="arithmetic.html">Арифметика</a></li>
-            <li><a href="cart.html">Корзина</a></li>
-            <li><a href="circles.html">Круги</a></li>
-            <li><a href="filters.html">Фильтр</a></li>
-        </ol>
+      <div>
+        Фильтр blur:
+        <input type="range" min="0" max="20" value="0" onchange="blurChange()" id="blurValue">
+        <span id="blurOutput"></span>
+      </div>
+      <div><img src="flora.webp" id="blurImage"></div>
     </main>
 
     <footer>

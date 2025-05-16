@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Обедина Екатерина Сергеевна. Лабораторная работа 5</title>
+    <link rel="stylesheet" href="main.css" />
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="favicon-16x16.png" />
+    <link rel="icon" href="favicon-32x32.png" />
+    <style>
+        header {
+            transition: color 0.5s ease; /* плавное изменение цвета */
+        }
+        button {
+            margin-right: 10px;
+            padding: 8px 16px;
+            font-size: 16px;
+        }
+        .time-block {
+            margin: 10px 0;
+            font-size: 18px;
+        }
+        .locale-label {
+            font-weight: bold;
+        }
+    </style>
+    <script>
+        let colorTimer = null;
+        let timeTimer = null;
+
+        // Массив локалей и соответствующих id элементов
+        const locales = [
+            { id: 'date-ru', locale: 'ru-RU', label: 'Русская локаль (ru-RU)' },
+            { id: 'date-en', locale: 'en-US', label: 'Американская локаль (en-US)' },
+            { id: 'date-fr', locale: 'fr-FR', label: 'Французская локаль (fr-FR)' },
+            { id: 'date-ja', locale: 'ja-JP', label: 'Японская локаль (ja-JP)' },
+            { id: 'date-de', locale: 'de-DE', label: 'Немецкая локаль (de-DE)' }
+        ];
+
+        // Функция обновления даты/времени для всех локалей
+        function updateAllDates() {
+            const now = new Date();
+            locales.forEach(({id, locale}) => {
+                const el = document.getElementById(id);
+                if (el) {
+                    el.textContent = now.toLocaleString(locale);
+                }
+            });
+        }
+
+        // Функция смены цвета заголовка
+        function changeColors() {
+            const header = document.getElementsByTagName('header')[0];
+            const r = Math.floor(Math.random() * 256);
+            const g = Math.floor(Math.random() * 256);
+            const b = Math.floor(Math.random() * 256);
+            header.style.color = 'rgb(' + r + ', ' + g + ', ' + b + ')';
+        }
+
+        // Старт смены цвета
+        function startChangeColors() {
+            changeColors();
+            if (!colorTimer) {
+                colorTimer = setInterval(changeColors, 500);
+            }
+            document.getElementById('start-btn').disabled = true;
+            document.getElementById('stop-btn').disabled = false;
+        }
+
+        // Стоп смены цвета
+        function stopChangeColors() {
+            if (colorTimer) {
+                clearInterval(colorTimer);
+                colorTimer = null;
+            }
+            document.getElementById('stop-btn').disabled = true;
+            document.getElementById('start-btn').disabled = false;
+        }
+
+        // Старт обновления времени
+        function startUpdateTime() {
+            updateAllDates();
+            if (!timeTimer) {
+                timeTimer = setInterval(updateAllDates, 1000);
+            }
+            document.getElementById('start-time-btn').disabled = true;
+            document.getElementById('stop-time-btn').disabled = false;
+        }
+
+        // Стоп обновления времени
+        function stopUpdateTime() {
+            if (timeTimer) {
+                clearInterval(timeTimer);
+                timeTimer = null;
+            }
+            document.getElementById('stop-time-btn').disabled = true;
+            document.getElementById('start-time-btn').disabled = false;
+        }
+
+        // При загрузке страницы инициализируем данные
+        window.onload = function() {
+            updateAllDates();
+                        // Можно сразу запустить смену цвета или оставить кнопки для управления
+            // startChangeColors();
+        };
+    </script>
+</head>
+<body>
+    <header>НГТУ, ФБ, Лабораторная работа 6</header>
+
+    <main>
+        <!-- Блоки с датой и временем для разных локалей -->
+        <div class="time-block">
+            <span class="locale-label">Русская локаль (ru-RU): </span><span id="date-ru"></span>
+        </div>
+        <div class="time-block">
+            <span class="locale-label">Американская локаль (en-US): </span><span id="date-en"></span>
+        </div>
+        <div class="time-block">
+            <span class="locale-label">Французская локаль (fr-FR): </span><span id="date-fr"></span>
+        </div>
+        <div class="time-block">
+            <span class="locale-label">Японская локаль (ja-JP): </span><span id="date-ja"></span>
+        </div>
+        <div class="time-block">
+            <span class="locale-label">Немецкая локаль (de-DE): </span><span id="date-de"></span>
+        </div>
+
+        <!-- Кнопки управления сменой цвета заголовка -->
+        <div style="margin-top:20px;">
+            <button id="start-btn" onclick="startChangeColors()">Старт смены цвета</button>
+            <button id="stop-btn" onclick="stopChangeColors()" disabled>Стоп смены цвета</button>
+        </div>
+
+        <!-- Кнопки управления обновлением времени -->
+        <div style="margin-top:20px;">
+            <button id="start-time-btn" onclick="startUpdateTime()">Обновлять время</button>
+            <button id="stop-time-btn" onclick="stopUpdateTime()" disabled>Остановить обновление времени</button>
+        </div>
+
+    </main>
+
+    <footer>
+        &copy; Обедина Екатерина, ФБИ-33, 2 курс, 2025
+    </footer>
+</body>
+</html>
+

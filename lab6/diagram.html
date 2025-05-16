@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Обедина Екатерина Сергеевна. Лабораторная работа 5</title>
+    <link rel="stylesheet" href="main.css" />
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="favicon-16x16.png" />
+    <link rel="icon" href="favicon-32x32.png" />
+
+    <style>
+        /* Контейнер диаграммы */
+        #diag {
+            width: 600px; /* фиксированная ширина диаграммы */
+            margin: 20px auto;
+            border: 1px solid #ccc;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        /* Каждый столбец - flex контейнер по горизонтали */
+        .bar {
+            height: 30px;
+            margin-bottom: 10px;
+            position: relative;
+            color: white;
+            font-weight: bold;
+            font-family: Arial, sans-serif;
+            line-height: 30px;
+            padding-left: 5px;
+            border-radius: 4px;
+            white-space: nowrap;
+        }
+    </style>
+
+    <script>
+        function showDiagram() {
+            let data = [36,86,55,28,92,60,41,17,9,43];
+            let colors = ['red', 'green', '#00ff33', 'blue', 'purple', 'yellow', 'pink', 'black', 'darkblue', 'darkgreen'];
+
+            let diag = document.getElementById('diag');
+            diag.innerHTML = ''; // очистим контейнер
+
+            const diagWidth = diag.clientWidth;
+            const maxData = Math.max(...data);
+            const maxBarWidth = diagWidth * 0.9; // максимум 90% ширины контейнера
+
+            for(let i = 0; i < data.length; i++) {
+                let bar = document.createElement('div');
+                bar.className = 'bar';
+
+                // вычисляем ширину столбца пропорционально значению
+                let barWidth = (data[i] / maxData) * maxBarWidth;
+
+                bar.style.width = barWidth + 'px';
+                bar.style.backgroundColor = colors[i];
+                bar.textContent = data[i]; // отображаем значение внутри столбца
+
+                diag.appendChild(bar);
+            }
+        }
+
+        window.onload = showDiagram;
+        window.onresize = showDiagram; // при изменении размера окна пересчитывать диаграмму
+    </script>
+</head>
+<body>
+    <header>НГТУ, ФБ, Лабораторная работа 6</header>
+
+    <main>
+        <div id="diag"></div>
+    </main>
+
+    <footer>
+        &copy; Обедина Екатерина, ФБИ-33, 2 курс, 2025
+    </footer>
+</body>
+</html>

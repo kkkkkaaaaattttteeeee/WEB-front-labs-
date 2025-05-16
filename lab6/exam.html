@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Столбчатая диаграмма температур (расположение снизу)</title>
+<style>
+  html, body {
+    height: 100%;
+    margin: 0; padding: 0;
+    font-family: Arial, sans-serif;
+    background: #f9f9f9;
+  }
+  body {
+    display: flex;
+    flex-direction: column;
+  }
+  header {
+    background: #3f51b5;
+    color: white;
+    padding: 15px 20px;
+    font-size: 18px;
+    font-weight: bold;
+    user-select: none;
+    /* фиксируем шапку сверху */
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 1000;
+    height: 50px;
+    line-height: 20px;
+    display: flex;
+    align-items: center;
+  }
+  main {
+    /* Отступ сверху под шапку */
+    margin-top: 50px;
+
+    /* Занимаем всё доступное пространство */
+    flex-grow: 1;
+
+    /* Сделаем flex-контейнер колонкой */
+    display: flex;
+    flex-direction: column;
+
+    /* Прижмём содержимое к низу */
+    justify-content: flex-end;
+
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+
+    padding-left: 15px;
+    padding-right: 15px;
+
+    background: white;
+    box-sizing: border-box;
+  }
+  .chart {
+    display: flex;
+    align-items: flex-end; /* столбики растут вверх от низа */
+    height: 220px;
+    border-left: 2px solid #666;
+    border-bottom: 2px solid #666;
+    padding-bottom: 10px;
+    user-select:none;
+
+    /* Чтобы диаграмма была прижата к низу main, высота фиксирована */
+  }
+  .day-column {
+    flex-grow: 1;
+    margin: 0 1px;
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end; /* текст внутри тоже снизу */
+    font-size: 11px;
+    color: white;
+    text-align: center;
+    line-height: 1.2em;
+  }
+  .bar-min {
+    background-color: #4caf50; /* зеленый для мин */
+    height: 0;
+    transition: height 0.3s ease;
+    border-radius: 2px 2px 0 0;
+    
+    position: relative;
+    
+    display: flex;
+    align-items: flex-start; /* чтобы текст был сверху столбика */
+    justify-content: center;
+
+    padding-top: 2px;
+  }
+  .bar-max {
+    background-color: #f44336; /* красный для макс */
+    height: 0;
+    transition: height 0.3s ease;
+    border-radius: 2px 2px 0 0;
+    margin-top: 2px;
+
+    
+    position: relative;
+
+    
+    display: flex;
+    align-items: flex-start; /* текст сверху */
+    justify-content: center;
+
+    padding-top: 2px;
+  }
+  .day-column.selected .bar-min {
+    background-color: #2e7d32; /* темнее зеленого */
+  }
+  .day-column.selected .bar-max {
+    background-color: #b71c1c; /* темнее красного */
+  }
+  .day-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 6px;
+    font-size: 12px;
+    color: #444;
+    user-select:none;
+  }
+  .input-section {
+    margin-top: 25px;
+    font-size: 16px;
+  }
+  input[type=number] {
+    width: 60px;
+    padding: 5px;
+    font-size: 16px;
+    margin-left: 8px;
+  }
+  .info {
+    margin-top: 12px;
+    font-weight: bold;
+    font-size: 16px;
+    min-height: 24px; /* чтобы не прыгал текст */
+  }
+</style>
+</head>
+<body>
+
+<header>НГТУ, ФБ, Лабораторная работа 6</header>
+
+<main>
+  
+  <div class="chart" id="chart"></div>
+  
+  <div class="day-labels" id="dayLabels"></div>
+  
+  <div class="input-section">
+    <label for="dayInput">Введите номер дня (1–30):</label>
+    <input type="number" id="dayInput" min="1" max="30" />
+    
+    <div class="info" id="info"></div>
+  </div>
+
+</main>
+
+<script>
+(() => {
+  const daysCount = 30;
+
+  const temperatures = [];
+  
+  for(let i =0; i < daysCount; i++) {
+    const minTemp = Math.floor(Math.random() * 21) -10; // -10..10
+    const maxTemp = minTemp + 1 + Math.floor(Math.random() * (35 - minTemp));
+    temperatures.push({ min: minTemp, max: maxTemp });
+  }
+
+  const chart = document.getElementById('chart');
+  const dayLabels = document.getElementById('dayLabels');
+  const dayInput = document.getElementById('dayInput');
+  const info = document.getElementById('info');
+
+  let selectedDayIndex = null;
+
+  
+  let globalMaxTemp = Math.max(...temperatures.map(t => t.max));
+  
+ 
+  function createChart() {
+    chart.innerHTML = '';
+    dayLabels.innerHTML = '';
+
+    for(let i=0; i<daysCount; i++) {
+      const dayCol = document.createElement('div');
+      dayCol.className = 'day-column';
+      dayCol.dataset.day = i+1;
+
+      const barMin = document.createElement('div');
+      barMin.className = 'bar-min';
+      const barMax = document.createElement('div');
+      barMax.className = 'bar-max';
+
+      const baseTemp = -10;
+
+      const scale = (temp) => ((temp - baseTemp) / (globalMaxTemp - baseTemp)) * (chart.clientHeight -20);
+
+      barMin.style.height = scale(temperatures[i].min) + 'px';
+      barMax.style.height = scale(temperatures[i].max) + 'px';
+
+      barMin.textContent = temperatures[i].min + '°';
+      barMax.textContent = temperatures[i].max + '°';
+
+      dayCol.appendChild(barMin);
+      dayCol.appendChild(barMax);
+
+      dayCol.addEventListener('click', () => {
+        selectDay(i);
+        dayInput.value = i+1; 
+      });
+
+      chart.appendChild(dayCol);
+
+      const label = document.createElement('div');
+      label.textContent = i+1;
+      label.style.width = 'calc(100% / ' + daysCount + ')';
+      label.style.textAlign = 'center';
+      dayLabels.appendChild(label);
+    }
+
+    
+    dayLabels.style.display = 'flex';
+
+    
+    if(selectedDayIndex !== null) highlightSelected(selectedDayIndex);
+    
+  }
+
+  
+  function highlightSelected(index) {
+    const columns = chart.querySelectorAll('.day-column');
+    
+    columns.forEach((col,i) => {
+      if(i === index) col.classList.add('selected');
+      else col.classList.remove('selected');
+    });
+    
+    const temp = temperatures[index];
+    
+    info.textContent = "День " + dayNumber + ": Минимальная температура " + temp.min + "°C, Максимальная температура " + temp.max + "°C";
+
+    selectedDayIndex = index;
+  }
+
+  
+  function selectDay(index) {
+    
+    if(index <0 || index >= daysCount) return;
+
+    
+    highlightSelected(index);
+    
+  }
+
+  
+  dayInput.addEventListener('input', () => {
+    
+    const val = parseInt(dayInput.value);
+    
+   
+    if(isNaN(val) || val <1 || val > daysCount) {
+      info.textContent = '';
+      selectedDayIndex = null;
+
+      
+      chart.querySelectorAll('.day-column').forEach(c => c.classList.remove('selected'));
+      
+      return;
+    }
+    
+   
+    selectDay(val-1);
+    
+  });
+
+  
+ 
+ window.addEventListener('resize', () => {
+     createChart();
+   });
+
+  
+   createChart();
+
+})();
+</script>
+
+</body>
+</html>

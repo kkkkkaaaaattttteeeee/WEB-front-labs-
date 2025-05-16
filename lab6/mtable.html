@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Обедина Екатерина Сергеевна. Лабораторная работа 5</title>
+    <link rel="stylesheet" href="main.css" />
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="favicon-16x16.png" />
+    <link rel="icon" href="favicon-32x32.png" />
+
+    <script>
+        function showMultipleTable() {
+            // Получаем значения из полей ввода
+            let multiplier = parseInt(document.getElementById('multiplier').value);
+            let start = parseInt(document.getElementById('start').value);
+            let end = parseInt(document.getElementById('end').value);
+
+            // Проверяем корректность введённых данных
+            if (isNaN(multiplier) || isNaN(start) || isNaN(end)) {
+                alert('Пожалуйста, введите корректные числа во все поля.');
+                return;
+            }
+            if (start > end) {
+                alert('Начальное число не может быть больше конечного.');
+                return;
+            }
+
+            let tbl = document.getElementById('mtable');
+            tbl.innerHTML = '<h1>Таблица умножения</h1>';
+
+            // Генерируем таблицу умножения
+            for(let i = start; i <= end; i++) {
+                let s = '<div>' + i + ' * ' + multiplier + ' = ' + (i * multiplier) + '</div>';
+                tbl.innerHTML += s;
+            }
+        }
+
+        // При загрузке страницы показываем таблицу с дефолтными значениями
+        window.onload = function() {
+            // Устанавливаем дефолтные значения в поля
+            document.getElementById('multiplier').value = 7;
+            document.getElementById('start').value = 1;
+            document.getElementById('end').value = 10;
+
+            showMultipleTable();
+        }
+    </script>
+</head>
+<body>
+    <header>НГТУ, ФБ, Лабораторная работа 6</header>
+
+    <main>
+       <div id="mtable"></div>
+
+       <!-- Блок с полями ввода -->
+       <div style="margin-top:20px;">
+           <label>
+               Умножить на: 
+               <input type="number" id="multiplier" min="1" />
+           </label>
+           &nbsp;&nbsp;
+           <label>
+               Начать с: 
+               <input type="number" id="start" min="1" />
+           </label>
+           &nbsp;&nbsp;
+           <label>
+               Закончить на: 
+               <input type="number" id="end" min="1" />
+           </label>
+           &nbsp;&nbsp;
+           <button onclick="showMultipleTable()">Показать таблицу</button>
+       </div>
+    </main>
+
+    <footer>
+        &copy; Обедина Екатерина, ФБИ-33, 2 курс, 2025
+    </footer>
+</body>
+</html>

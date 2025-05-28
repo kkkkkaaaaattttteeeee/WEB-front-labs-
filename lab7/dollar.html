@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Обедина Екатерина Сергеевна. Лабораторная работа 7</title>
+    <link rel="stylesheet" href="main.css" />
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="favicon-16x16.png" />
+    <link rel="icon" href="favicon-32x32.png" />
+<script>
+    function showExchange() {
+        const exchange = [
+            92.2914, 92.5254, 92.3892, 92.4155, 92.581, 92.7463, 93.2198, 93.7196, 93.4419
+        ];
+        let table = document.getElementById('dollar-table');
+        let sum = 0;
+
+        // Очищаем таблицу перед добавлением новых данных
+        table.innerHTML = '';
+
+        for (let i = 0; i < exchange.length; i++) {
+            let tr = document.createElement('tr');
+            let td = document.createElement('td');
+            td.innerText = exchange[i];
+            tr.appendChild(td);
+            table.appendChild(tr);
+
+            sum += exchange[i];
+        }
+
+        let average = sum / exchange.length;
+        average = average.toFixed(2);
+
+        // Обратите внимание: id в HTML — "detail", а не "derail"
+        document.getElementById('detail').textContent = 'Среднее значение курса: ' + average;
+
+        // Скрываем кнопку после первого нажатия
+        const btn = document.querySelector('button[onclick="showExchange()"]');
+        if (btn) {
+            btn.style.display = 'none';
+        }
+    }
+</script>
+</head>
+<body>
+    <header>НГТУ, ФБ, Лабораторная работа 7</header>
+
+    <main>
+       <button onclick="showExchange()">Курс доллара</button>
+       <table border="1" id="dollar-table"></table>
+       <div id="detail"></div>
+    </main>
+
+    <footer>
+        &copy;Обедина Екатерина, ФБИ-33, 2 курс, 2025
+    </footer>
+</body>
+</html>
+

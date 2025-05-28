@@ -9,14 +9,25 @@
     <link rel="icon" href="favicon-16x16.png">
     <link rel="icon" href="favicon-32x32.png">
     
+<script>
+    function addNewBlock() {
+        let newBlock = document.createElement('div');
+        newBlock.style.backgroundColor = 'green';
+        newBlock.style.height = '40px';
+        newBlock.style.border = '2px solid blue';
+        newBlock.style.margin = '10px 0';
+        newBlock.style.width = '300px';
+
+        document.querySelector('main').appendChild(newBlock);
+
+    }
+</script>
 </head>
 <body>
     <header>НГТУ, ФБ, Лабораторная работа 7</header>
 
     <main>
-        <ol>
-            <li><a href='blocks.html'>Добавление блока</a></li>
-        </ol>
+        <button onclick="addNewBlock()">Добавить блок</button>
     </main>
 
     <footer>

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Обедина Екатерина Сергеевна. Лабораторная работа 7 - Котировки акций VEON</title>
+    <link rel="stylesheet" href="main.css" />
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="favicon-16x16.png" />
+    <link rel="icon" href="favicon-32x32.png" />
+    <style>
+        table {
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 6px 10px;
+            text-align: center;
+        }
+        .diff-positive {
+            color: green;
+            font-weight: bold;
+        }
+        .diff-negative {
+            color: red;
+            font-weight: bold;
+        }
+        .diff-zero {
+            color: black;
+        }
+        #summary {
+            margin-top: 15px;
+            font-weight: bold;
+        }
+    </style>
+    <script>
+        function showVeonQuotes() {
+            // Данные: даты и цены (примерные последние 10 торговых дней с Мосбиржи)
+            const dates = [
+                '2024-06-14',
+                '2024-06-13',
+                '2024-06-12',
+                '2024-06-11',
+                '2024-06-10',
+                '2024-06-07',
+                '2024-06-06',
+                '2024-06-05',
+                '2024-06-04',
+                '2024-06-03'
+            ];
+
+            // Цены закрытия акций VEON (примерные данные, в рублях)
+            const prices = [
+                63.45,
+                62.90,
+                63.10,
+                62.75,
+                62.50,
+                62.60,
+                62.80,
+                62.40,
+                62.20,
+                62.00
+            ];
+
+            // Обратим порядок, чтобы даты шли по возрастанию (старые — слева)
+            dates.reverse();
+            prices.reverse();
+
+            const table = document.getElementById('veon-table');
+            const summaryDiv = document.getElementById('summary');
+
+            // Очистим таблицу и блок с итогами
+            table.innerHTML = '';
+            summaryDiv.innerHTML = '';
+
+            // Создаем заголовок таблицы
+            const thead = document.createElement('thead');
+            const headerRow = document.createElement('tr');
+            ['Дата', 'Цена акции (руб.)', 'Разница'].forEach(text => {
+                const th = document.createElement('th');
+                th.textContent = text;
+                headerRow.appendChild(th);
+            });
+            thead.appendChild(headerRow);
+            table.appendChild(thead);
+
+            // Создаем тело таблицы
+            const tbody = document.createElement('tbody');
+
+            for (let i = 0; i < dates.length; i++) {
+                const tr = document.createElement('tr');
+
+                // Дата
+                const tdDate = document.createElement('td');
+                tdDate.textContent = dates[i];
+                tr.appendChild(tdDate);
+
+                // Цена
+                const tdPrice = document.createElement('td');
+                tdPrice.textContent = prices[i].toFixed(2);
+                tr.appendChild(tdPrice);
+
+                // Разница
+                const tdDiff = document.createElement('td');
+                if (i === 0) {
+                    tdDiff.textContent = '-';
+                    tdDiff.classList.add('diff-zero');
+                } else {
+                    const diff = prices[i] - prices[i - 1];
+                    tdDiff.textContent = diff.toFixed(2);
+                    if (diff > 0) {
+                        tdDiff.classList.add('diff-positive');
+                    } else if (diff < 0) {
+                        tdDiff.classList.add('diff-negative');
+                    } else {
+                        tdDiff.classList.add('diff-zero');
+                                            }
+                }
+                tr.appendChild(tdDiff);
+
+                tbody.appendChild(tr);
+            }
+
+            table.appendChild(tbody);
+
+            // Рассчитаем среднее, максимум и минимум
+            let sum = prices.reduce((acc, val) => acc + val, 0);
+            let average = (sum / prices.length).toFixed(2);
+            let maxPrice = Math.max(...prices).toFixed(2);
+            let minPrice = Math.min(...prices).toFixed(2);
+
+            summaryDiv.innerHTML = 
+    "Среднее значение стоимости акции: " + average + " руб.<br />" +
+    "Максимальное значение стоимости акции: " + maxPrice + " руб.<br />" +
+    "Минимальное значение стоимости акции: " + minPrice + " руб.";
+
+
+            // Скрываем кнопку после первого нажатия
+            const btn = document.getElementById('show-veon-btn');
+            if (btn) btn.style.display = 'none';
+        }
+    </script>
+</head>
+<body>
+    <header>НГТУ, ФБ, Лабораторная работа 7</header>
+
+    <main>
+       <button id="show-veon-btn" onclick="showVeonQuotes()">Курс акций VEON</button>
+       <table id="veon-table" border="1"></table>
+       <div id="summary"></div>
+    </main>
+
+    <footer>
+        &copy;Обедина Екатерина, ФБИ-33, 2 курс, 2025
+    </footer>
+</body>
+</html>
+

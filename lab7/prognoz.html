@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Обедина Екатерина Сергеевна. Лабораторная работа 7</title>
+    <link rel="stylesheet" href="main.css" />
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="favicon-16x16.png" />
+    <link rel="icon" href="favicon-32x32.png" />
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        h1 {
+            color: navy;
+        }
+        table {
+            margin: 20px auto;
+            border-collapse: collapse;
+            width: 50%;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 10px;
+            text-align: left;
+        }
+        tbody tr:nth-child(even) {
+            background-color: lightblue;
+        }
+    </style>
+</head>
+<body>
+    <header>НГТУ, ФБ, Лабораторная работа 7</header>
+<h1>Прогноз погоды в Новосибирске</h1>
+<div id="weather"></div>
+
+
+<script>
+// Координаты Новосибирска
+const lat = 55.0415;
+const lon = 82.9346;
+
+// Текущая дата
+const today = new Date().toISOString().split('T')[0];
+
+// Массив искомых часов
+const hoursOfInterest = ['08:00', '12:00', '20:00'];
+
+// URL для API openmeteo
+const apiUrl = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&hourly=temperature_2m&start_date=${today}&end_date=${today}&timezone=Asia%2FNovosibirsk`;
+
+// Выполняем запрос
+fetch(apiUrl)
+    .then(response => response.json())
+    .then(data => {
+        // Массивы времени и температуры
+        const times = data.hourly.time;
+        const temperatures = data.hourly.temperature_2m;
+
+        // Формируем таблицу
+        const table = document.createElement('table');
+        const thead = document.createElement('thead');
+        const tbody = document.createElement('tbody');
+
+        // Шапка таблицы
+        const rowHeader = document.createElement('tr');
+        rowHeader.appendChild(document.createElement('th')).innerText = 'Время';
+        rowHeader.appendChild(document.createElement('th')).innerText = 'Температура (°C)';
+        thead.append(rowHeader);
+        table.append(thead);
+
+        // Проходимся по каждому интересующему нас времени
+        hoursOfInterest.forEach(hour => {
+            // Находим индекс нужного часа
+            const index = times.findIndex(time => time.endsWith(`${today}T${hour}`));
+            if (index >= 0) {
+                const tempRow = document.createElement('tr');
+               tempRow.appendChild(document.createElement('td')).innerText = hour;
+               tempRow.appendChild(document.createElement('td')).innerText = temperatures[index] + "C";
+
+                tbody.append(tempRow);
+            }
+        });
+
+        table.append(tbody);
+        document.getElementById('weather').append(table);
+    })
+    .catch(err => {
+        console.error('Ошибка:', err);
+        document.getElementById('weather').innerText = 'Ошибка при загрузке данных.';
+    });
+</script>
+
+
+    <footer>
+        &copy; Обедина Екатерина, ФБИ-33, 2 курс, 2025
+    </footer>
+</body>
+</html>
